@@ -6,7 +6,7 @@ var auth = require('./controllers/auth.js')();
 
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://wanmuz:abcd1234@ds143744.mlab.com:43744/yuchinproject')
+mongoose.connect('mongodb://yuchin123:yuchin123@ds147964.mlab.com:47964/yc_studentportal')
 
 var bodyParser = require('body-parser');
 
