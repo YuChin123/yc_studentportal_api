@@ -30,6 +30,12 @@ router.route('/courses/:course_id')
 router.route('/courses/:course_id/timetables')
 .post(courseController.createTimetable)
 
+router.route('/courses/:course_id/news')
+.post(courseController.postNews)
+.get(courseController.getNews)
+
+
+
 
 router.route('/login')
 .post(userController.getUserToken)

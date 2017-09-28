@@ -8,7 +8,6 @@ exports.getUserToken = function(req,res)  {
     if (req.body.email && req.body.password) {
         var email = req.body.email;
         var password = req.body.password;
-        var category = req.body.category; 
         var user = users.find(function(u) {
             return u.email === email && u.password === password;
         });
