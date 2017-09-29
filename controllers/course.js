@@ -1,3 +1,6 @@
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
 var Course = require('../model/course.js')
 
 exports.getCourse = function(req,res){
@@ -12,6 +15,7 @@ exports.getCourse = function(req,res){
  });
 
 }
+
 
 exports.postCourse = function(req,res){
 	var course = new Course();
@@ -55,15 +59,69 @@ exports.getCourseById = function(req,res){
  });
 }
 
-exports.getTimetableForCourse = function(req,res){
-
-
+exports.postNews = function(req,res){
 	
+Course.findById(req.params.course_id, function(err, course) {
+	 if (err){
+	 	 res.send(err);
+	 }
+	 else {
+	 	var newNews = {
+	 		comment : req.body.comment_text,
+	 		posted_by : req.body.posted_by,
+	 		likes : req.body.likes,
+	 	}
+	 	course.news.push(newNews)
+	 	course.save(function(err) {
+		if (err){
+			res.send(err);
+		}
+		else {
+			res.json({ message: 'News added!!' });
+		}
+	 
+ });
+}
+}
+)
 }
 
+exports.getNews = function(req,res){
+	News.find(function(err, courses) {
+		if (err){
+			res.send(err);
+		}
+		else {
+			 res.json(news);
+		}
+
+ });
+
+}
+
+
+
+
+exports.editNews = function(req,res){
+
+}
+
+exports.deleteNews = function(req,res){
+	News.findById(req.params.news_id)
+	News.remove({
+		_id: req.params.news_id
+	}, function(err, news) {
+		if (err)
+			res.send(err);
+		res.json({ message: 'Successfully deleted' });
+	}); 
+}
+
+
+
+
+
 exports.createTimetable = function(req,res){
-
-
 Course.findById(req.params.course_id, function(err, course) {
 	 if (err){
 	 	 res.send(err);
@@ -89,41 +147,4 @@ Course.findById(req.params.course_id, function(err, course) {
 });
 
 //news 
-exports.getNews = function(req,res){
-	News.find(function(err, courses) {
-		if (err){
-			res.send(err);
-		}
-		else {
-			 res.json(news);
-		}
-
- });
-
-}
-
-exports.postNews = function(req,res){
-	var news = new News();
-	course.comment = req.body.comment_text;
-	course.posted_by = req.body.posted_by;
-	course.likes = req.body.likes;
-
-	course.save(function(err) {
-		if (err){
-			res.send(err);
-		}
-		else {
-			res.json({ message: 'News created!' });
-		}
-			 
-		
-	});
-}
-
-exports.editNews = function(req,res){
-
-}
-
-exports.deleteNews = function(req,res){
-
 }
