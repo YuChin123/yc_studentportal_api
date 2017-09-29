@@ -67,11 +67,11 @@ Course.findById(req.params.course_id, function(err, course) {
 	 }
 	 else {
 	 	var newNews = {
-	 		comment : req.body.comment_text,
+	 		comment_text : req.body.comment_text,
 	 		posted_by : req.body.posted_by,
 	 		likes : req.body.likes,
 	 	}
-	 	course.news.push(newNews)
+	 	course.comment.push(newNews)
 	 	course.save(function(err) {
 		if (err){
 			res.send(err);
